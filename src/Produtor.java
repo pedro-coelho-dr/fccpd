@@ -13,13 +13,9 @@ public class Produtor implements Runnable {
         totalProduzido = 0;
     }
     public void run(){
-        int y = 0;
         for(int i = 0; i<10;i++) {
-            y = deposito.armazenar(qtdSacasColheita);
-            if(y != 0) {
-                totalProduzido += qtdSacasColheita;
-                System.out.println("Fazendeiro(codigo) : "+codigo+", Total Produzido:"+totalProduzido+"\n");
-            }
+            System.out.println("PRODUTOR: "+codigo+" / Iteração: "+ i +" / Produção: " + qtdSacasColheita +"\n");
+            deposito.armazenar(qtdSacasColheita, codigo);
             try {
                 Thread.sleep(intervaloProd);
             } catch( InterruptedException exception ) {

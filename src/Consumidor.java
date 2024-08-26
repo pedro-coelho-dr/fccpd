@@ -1,5 +1,5 @@
 public class Consumidor implements Runnable{
-    private  int codigo;
+    private int codigo;
     private int consumoColheita;
     private int intervaloConsumo;
     private int totalConsumido;
@@ -15,11 +15,8 @@ public class Consumidor implements Runnable{
 
     public void run()   {
         for (int i = 0;i <10;i++) {
-            int y = deposito.retirar(consumoColheita);
-            if(y != 0) {
-                totalConsumido+=consumoColheita;
-                System.out.println("Consumidor (codigo) : "+codigo+", Total Consumido: "+totalConsumido+"\n");
-            }
+            System.out.println("CONSUMIDOR: "+codigo+" / Iteração: "+ i + " / Consumação: " + consumoColheita +"\n");
+            deposito.retirar(consumoColheita, codigo);
             try {
                 Thread.sleep(intervaloConsumo);
             }catch( InterruptedException exception ) {

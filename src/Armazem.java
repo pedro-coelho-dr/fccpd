@@ -7,23 +7,33 @@ public class Armazem {
         capMax = cap;
     }
 
-    public synchronized int retirar(int consumo) {
-        if ((estoque - consumo) >= 0) {
-            estoque -= consumo;
-            System.out.println("   ARMAZEM(saida) -> Estoque Atual: "+estoque+" sacas");
-            return 1;
+    public synchronized int retirar(int consumo, int codigo) {
+        while (estoque < consumo) {
+            try {
+                System.out.println("   *** Armazem sem estoque! CONSUMIDOR " + codigo + " aguardando... ***");
+                wait();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
         }
-        System.out.println("   *** Armazem sem estoque! ***");
-        return 0;
+        estoque -= consumo;
+        System.out.println("   ARMAZEM(saida) -> CONSUMIDOR " + codigo + " consumiu " + consumo + " Estoque Atual: " + estoque + " sacas");
+        notifyAll();
+        return 1;
     }
 
-    public synchronized int armazenar (int qtd) {
-        if ((estoque + qtd) <= capMax) {
-            estoque += qtd;
-            System.out.println("   ARMAZEM(entrada) -> Estoque Atual: "+estoque+" sacas");
-            return 1;
+    public synchronized int armazenar (int qtd, int codigo) {
+        while (estoque + qtd > capMax) {
+            try {
+                System.out.println("   *** Armazem em capacidade máxima! PRODUTOR " + codigo + " aguardando... ***");
+                wait();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
         }
-        System.out.println("   ***Armazem com capacidade Maxima! ***");
-        return 0;
+        estoque += qtd;
+        System.out.println("   ARMAZEM(entrada) -> PRODUTOR " + codigo + " depositou " + qtd + " Estoque Atual: " + estoque + " sacas");
+        notifyAll();
+        return 1;
     }
 }
