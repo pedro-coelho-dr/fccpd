@@ -1,3 +1,5 @@
+package producerconsumer;
+
 public class Consumidor implements Runnable{
     private int codigo;
     private int consumoColheita;

@@ -1,3 +1,5 @@
+package producerconsumer;
+
 public class Produtor implements Runnable {
     private int codigo;
     private int qtdSacasColheita;
