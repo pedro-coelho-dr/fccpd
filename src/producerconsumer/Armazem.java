@@ -12,7 +12,7 @@ public class Armazem {
     public synchronized int retirar(int consumo, int codigo) {
         while (estoque < consumo) {
             try {
-                System.out.println("   *** producerconsumer.Armazem sem estoque! CONSUMIDOR " + codigo + " aguardando... ***");
+                System.out.println("   *** ARMAZEM sem estoque! CONSUMIDOR " + codigo + " aguardando... ***");
                 wait();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
@@ -27,7 +27,7 @@ public class Armazem {
     public synchronized int armazenar (int qtd, int codigo) {
         while (estoque + qtd > capMax) {
             try {
-                System.out.println("   *** producerconsumer.Armazem em capacidade máxima! PRODUTOR " + codigo + " aguardando... ***");
+                System.out.println("   *** ARMAZEM em capacidade máxima! PRODUTOR " + codigo + " aguardando... ***");
                 wait();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
