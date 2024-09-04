@@ -5,7 +5,7 @@ out/
 
 .idea/
 fccpd.iml
-
+/src/examples/
 
 ### Eclipse ###
 .apt_generated
